@@ -6,7 +6,7 @@ private:
     std::stack<Node<T>*> stack;
 
 public:
-    PreOrderIterator(Node<T>* root);
+    InOrderIterator(Node<T>* root);
 
     bool operator!=(const InOrderIterator<T> &other) const;
 
