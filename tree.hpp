@@ -1,6 +1,7 @@
 #pragma once
 #include "node.hpp"
 #include "preOrderIterator.hpp"
+#include "postOrderIterator.hpp"
 #include <vector>
 #include <iostream>
 #include <queue>
@@ -43,6 +44,14 @@ public:
 
     PreOrderIterator<T> end_pre_order() {
         return PreOrderIterator<T>(nullptr);
+    }
+
+    PostOrderIterator<T> begin_post_order() {
+        return PostOrderIterator<T>(root);
+    }
+
+    PostOrderIterator<T> end_post_order() {
+        return PostOrderIterator<T>(nullptr);
     }
 
     ~Tree() {
