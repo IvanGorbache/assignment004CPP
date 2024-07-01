@@ -8,6 +8,7 @@ class PostOrderIterator
 private:
     Node<T> *current;
     std::stack<Node<T> *> stack;
+    int index = 0;
 
     void push_children(Node<T> *node)
     {
@@ -45,31 +46,21 @@ public:
 
     PostOrderIterator<T> &operator++()
     {
-        if (stack.empty())
-        {
-            current = nullptr;
-            return *this;
-        }
         Node<T> *top = stack.top();
         stack.pop();
-
         if (!stack.empty())
         {
             Node<T> *parent = stack.top();
-            if (!parent->getChildren().empty() && top == parent->getChildren().back())
+            if (top != parent->getChildren().back())
             {
-                current = parent;
-            }
-            else
-            {
-                push_children(parent->getChildren().back());
-            }
-        }
-        else
-        {
-            current = nullptr;
-        }
+                push_children(parent->getChildren().at(++index));
 
+                if(index==parent->getChildren().size()-1)
+                {
+                    index = 0;
+                }
+            }
+        }
         return *this;
     }
     Node<T> *operator->() const
