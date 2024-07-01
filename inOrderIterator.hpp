@@ -35,24 +35,13 @@ public:
     }
 
     InOrderIterator<T>& operator++() {
-        if (stack.empty()) {
-            current = nullptr;
-        } else {
+        if (!stack.empty()){
             current = stack.top();
             stack.pop();
             if (!current->getChildren().empty()) {
                 if(current->getChildren().size()>1)
                 {
                     push_left_children(current->getChildren().back());
-                }
-                else if(stack.empty())
-                {
-                    current = nullptr;
-                }
-                else
-                {
-                    current = stack.top();
-
                 }
             }
         }
@@ -63,4 +52,3 @@ public:
         return stack.top();
     }
 };
-

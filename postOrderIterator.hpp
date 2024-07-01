@@ -8,7 +8,7 @@ class PostOrderIterator
 private:
     Node<T> *current;
     std::stack<Node<T> *> stack;
-    int index = 0;
+    unsigned long index = 0;
 
     void push_children(Node<T> *node)
     {

@@ -4,6 +4,7 @@
 #include "postOrderIterator.hpp"
 #include "inOrderIterator.hpp"
 #include "bfsScan.hpp"
+#include "dfsScan.hpp"
 #include <vector>
 #include <iostream>
 #include <queue>
@@ -13,9 +14,10 @@ class Tree
 {
 private:
     Node<T> *root;
+    int k;
 
 public:
-    Tree() : root(nullptr) {}
+    Tree() : root(nullptr), k(K){}
 
     void add_root(Node<T> *root_node)
     {
@@ -83,6 +85,14 @@ public:
 
     BfsScan<T> end_bfs_scan() {
         return BfsScan<T>(nullptr);
+    }
+
+    DfsScan<T> begin_dfs_scan() {
+        return DfsScan<T>(root);
+    }
+
+    DfsScan<T> end_dfs_scan() {
+        return DfsScan<T>(nullptr);
     }
 
     BfsScan<T> begin() {

@@ -41,14 +41,14 @@ int main()
     } // prints: 1.1, 1.2, 1.4, 1.5, 1.3, 1.6
     cout << endl;
 
-    std::cout<<""<<std::endl;
+    std::cout<<"POST:"<<std::endl;
 
     for (auto node = tree.begin_post_order(); node != tree.end_post_order(); ++node)
     {
         cout << node->get_value() << endl;
     } // prints: 1.4, 1.5, 1.2, 1.6, 1.3, 1.1
 
-    std::cout<<""<<std::endl;
+    std::cout<<"IN:"<<std::endl;
 
     for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
     {
@@ -116,9 +116,9 @@ int main()
         cout << node->get_value() << endl;
     } // prints: 1.5, 1.2, 1.6, 1.3, 1.4, 1.1
 
-    std::cout<<"IN:"<<std::endl;
+    std::cout<<"DFS:"<<std::endl;
 
-    for (auto node = three_ary_tree.begin_in_order(); node != three_ary_tree.end_in_order(); ++node)
+    for (auto node = three_ary_tree.begin_dfs_scan(); node != three_ary_tree.end_dfs_scan(); ++node)
     {
         cout << node->get_value() << endl;
     } // prints: 1.5, 1.2, 1.1, 1.6, 1.3, 1.4
