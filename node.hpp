@@ -8,7 +8,9 @@ private:
     std::vector<Node*> children;
 
 public:
-    Node(const T& value) : value(value) {}
+    Node(const T& value) : value(value) {
+        
+    }
 
     ~Node() {
             

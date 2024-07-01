@@ -2,6 +2,7 @@
 #include "node.hpp"
 #include "preOrderIterator.hpp"
 #include "postOrderIterator.hpp"
+#include "inOrderIterator.hpp"
 #include <vector>
 #include <iostream>
 #include <queue>
@@ -65,5 +66,13 @@ public:
     PostOrderIterator<T> end_post_order()
     {
         return PostOrderIterator<T>(nullptr);
+    }
+
+    InOrderIterator<T> begin_in_order() {
+        return InOrderIterator<T>(root);
+    }
+
+    InOrderIterator<T> end_in_order() {
+        return InOrderIterator<T>(nullptr);
     }
 };

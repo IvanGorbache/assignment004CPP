@@ -16,7 +16,7 @@ private:
             stack.push(node);
             if (!node->getChildren().empty())
             {
-                node = node->getChildren().fronts();
+                node = node->getChildren().front();
             }
             else
             {
@@ -52,7 +52,6 @@ public:
             current = nullptr;
             return *this;
         }
-
         Node<T> *top = stack.top();
         stack.pop();
 
