@@ -52,7 +52,7 @@ public:
                 else
                 {
                     current = stack.top();
-                    stack.pop();
+
                 }
             }
         }

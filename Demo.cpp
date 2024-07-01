@@ -17,12 +17,14 @@ int main()
     Node<double> n3 = Node<double>(1.4);
     Node<double> n4 = Node<double>(1.5);
     Node<double> n5 = Node<double>(1.6);
+    //Node<double> n6 = Node<double>(1.7);
 
     tree.add_sub_node(&root_node, &n1);
     tree.add_sub_node(&root_node, &n2);
     tree.add_sub_node(&n1, &n3);
     tree.add_sub_node(&n1, &n4);
     tree.add_sub_node(&n2, &n5);
+    //tree.add_sub_node(&n5,&n6);
    
     // The tree should look like:
     /**
