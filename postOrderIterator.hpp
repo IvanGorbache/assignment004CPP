@@ -35,14 +35,12 @@ public:
         }
     }
 
-    T operator*() const
-    {
-        return current->get_value();
+    T operator*() const {
+        return stack.front()->get_value();
     }
 
-    bool operator!=(const PostOrderIterator<T> &other) const
-    {
-        return current != other.current;
+    bool operator!=(const PostOrderIterator<T>& other) const {
+        return this->stack != other.stack;
     }
 
     PostOrderIterator<T> &operator++()

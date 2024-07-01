@@ -13,21 +13,19 @@ public:
             stack.push(root);
     }
 
-    bool operator!=(const PreOrderIterator<T> &other) const
-    {
-        return !stack.empty() || !other.stack.empty();
+    T operator*() const {
+        return stack.front()->get_value();
     }
 
-    Node<T> *operator*() const
-    {
-        return stack.top();
+    bool operator!=(const PreOrderIterator<T>& other) const {
+        return this->stack != other.stack;
     }
 
     PreOrderIterator<T> &operator++()
     {
         if (stack.empty())
         {
-            return *this; // Avoid further actions if stack is empty
+            return *this;
         }
 
         Node<T> *current = stack.top();

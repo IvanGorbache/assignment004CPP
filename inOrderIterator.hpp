@@ -27,11 +27,11 @@ public:
     }
 
     T operator*() const {
-        return current->get_value();
+        return stack.front()->get_value();
     }
 
     bool operator!=(const InOrderIterator<T>& other) const {
-        return current != other.current;
+        return this->stack != other.stack;
     }
 
     InOrderIterator<T>& operator++() {

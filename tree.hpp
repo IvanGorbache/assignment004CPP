@@ -3,6 +3,7 @@
 #include "preOrderIterator.hpp"
 #include "postOrderIterator.hpp"
 #include "inOrderIterator.hpp"
+#include "bfsScan.hpp"
 #include <vector>
 #include <iostream>
 #include <queue>
@@ -74,5 +75,21 @@ public:
 
     InOrderIterator<T> end_in_order() {
         return InOrderIterator<T>(nullptr);
+    }
+
+    BfsScan<T> begin_bfs_scan() {
+        return BfsScan<T>(root);
+    }
+
+    BfsScan<T> end_bfs_scan() {
+        return BfsScan<T>(nullptr);
+    }
+
+    BfsScan<T> begin() {
+        return begin_bfs_scan();
+    }
+
+    BfsScan<T> end() {
+        return end_bfs_scan();
     }
 };

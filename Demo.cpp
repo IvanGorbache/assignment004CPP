@@ -55,26 +55,44 @@ int main()
         cout << node->get_value() << endl;
     } // prints: 1.4, 1.2, 1.5, 1.1, 1.6, 1.3
 
-    // for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
-    // {
-    //     cout << node->get_value() << endl;
-    // } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    std::cout<<"BFS:"<<std::endl;
 
-    // for (auto node : tree)
-    // {
-    //     cout << node.get_value() << endl;
-    // } // same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
+    {
+        cout << node->get_value() << endl;
+    } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+    
+    std::cout<<"FOR:"<<std::endl;
+
+    for (Node<double> node : tree) {
+        std::cout << node.get_value() << std::endl;
+    }// same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
     // cout << tree; // Should print the graph using GUI.
 
-    // Tree<double,3> three_ary_tree; // 3-ary tree.
-    // three_ary_tree.add_root(root_node);
-    // three_ary_tree.add_sub_node(root_node, n1);
-    // three_ary_tree.add_sub_node(root_node, n2);
-    // three_ary_tree.add_sub_node(root_node, n3);
-    // three_ary_tree.add_sub_node(n1, n4);
-    // three_ary_tree.add_sub_node(n2, n5);
+    Node<double> tri_root_node = Node<double>(1.1);
 
+
+    Tree<double,3> three_ary_tree; // 3-ary tree.
+    Node<double> u1 = Node<double>(1.2);
+    Node<double> u2 = Node<double>(1.3);
+    Node<double> u3 = Node<double>(1.4);
+    Node<double> u4 = Node<double>(1.5);
+    Node<double> u5 = Node<double>(1.6);
+
+    three_ary_tree.add_root(&tri_root_node);
+    three_ary_tree.add_sub_node(&tri_root_node, &u1);
+    three_ary_tree.add_sub_node(&tri_root_node, &u2);
+    three_ary_tree.add_sub_node(&tri_root_node, &u3);
+    three_ary_tree.add_sub_node(&u1, &u4);
+    three_ary_tree.add_sub_node(&u2, &u5);
+
+    std::cout<<"BFS:"<<std::endl;
+
+    for (auto node = three_ary_tree.begin_bfs_scan(); node != three_ary_tree.end_bfs_scan(); ++node)
+    {
+        cout << node->get_value() << endl;
+    } 
     //  // The tree should look like:
     // /**
     //  *       root = 1.1
