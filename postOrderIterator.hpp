@@ -1,47 +1,82 @@
 #pragma once
-#include <stack>
 #include "node.hpp"
+#include <stack>
 
-template<typename T>
-class PostOrderIterator {
+template <typename T>
+class PostOrderIterator
+{
 private:
-    Node<T>* current;
-    std::stack<Node<T>*> stack;
-    std::stack<Node<T>*> visited;
+    Node<T> *current;
+    std::stack<Node<T> *> stack;
 
-public:
-    PostOrderIterator(Node<T>* root) : current(root) {
-        if (current) {
-            stack.push(current);
+    void push_children(Node<T> *node)
+    {
+        while (node != nullptr)
+        {
+            stack.push(node);
+            if (!node->getChildren().empty())
+            {
+                node = node->getChildren().fronts();
+            }
+            else
+            {
+                node = nullptr;
+            }
         }
     }
 
-    T operator*() const {
+public:
+    PostOrderIterator(Node<T> *root)
+    {
+        current = root;
+        if (current != nullptr)
+        {
+            push_children(current);
+        }
+    }
+
+    T operator*() const
+    {
         return current->get_value();
     }
 
-    PostOrderIterator& operator++() {
-        while (!stack.empty()) {
-            current = stack.top();
-            stack.pop();
-            visited.push(current);
-            for (Node<T>* child : current->getChildren()) {
-                stack.push(child);
-            }
-        }
-        if (!visited.empty()) {
-            current = visited.top();
-            visited.pop();
-        } else {
-            current = nullptr;
-        }
-        return *this;
-    }
-
-    bool operator!=(const PostOrderIterator& other) const {
+    bool operator!=(const PostOrderIterator<T> &other) const
+    {
         return current != other.current;
     }
-    Node<T>* operator->() const {
+
+    PostOrderIterator<T> &operator++()
+    {
+        if (stack.empty())
+        {
+            current = nullptr;
+            return *this;
+        }
+
+        Node<T> *top = stack.top();
+        stack.pop();
+
+        if (!stack.empty())
+        {
+            Node<T> *parent = stack.top();
+            if (!parent->getChildren().empty() && top == parent->getChildren().back())
+            {
+                current = parent;
+            }
+            else
+            {
+                push_children(parent->getChildren().back());
+            }
+        }
+        else
+        {
+            current = nullptr;
+        }
+
+        return *this;
+    }
+    Node<T> *operator->() const
+    {
         return stack.top();
     }
 };
