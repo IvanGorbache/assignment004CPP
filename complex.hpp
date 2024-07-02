@@ -17,7 +17,7 @@ public:
     bool operator>(const Complex& other) const;
     friend std::ostream& operator<<(std::ostream& os, const Complex& complex);
     std::string to_string() const;
-
+    friend std::string to_string(const Complex &complex);
     
 };
 
