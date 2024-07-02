@@ -5,10 +5,13 @@
 #include "inOrderIterator.hpp"
 #include "bfsScan.hpp"
 #include "dfsScan.hpp"
+#include "minHeapIterator.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
 #include <queue>
+
+#include "complex.hpp"
 
 template <typename T, int K = 2>
 class Tree
@@ -112,6 +115,14 @@ public:
         return end_bfs_scan();
     }
 
+    MinHeapIterator<T> begin_min_heap() const {
+        return MinHeapIterator<T>(root);
+    }
+
+    MinHeapIterator<T> end_min_heap() const {
+        return MinHeapIterator<T>(nullptr);
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const Tree<T, K> &tree)
     {
         tree.visualize();
@@ -120,7 +131,7 @@ public:
 
     void visualize() const
     {
-        sf::RenderWindow window(sf::VideoMode(800, 600), "Tree Visualization");
+        sf::RenderWindow window(sf::VideoMode(800, 800), "Tree");
 
         while (window.isOpen())
         {
@@ -152,13 +163,17 @@ public:
         sf::Font font;
         if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
         {
-            std::cerr << "Failed to load font" << std::endl;
+            std::cerr << "Failed not found" << std::endl;
             return;
         }
 
         sf::Text text;
         text.setFont(font);
-        text.setString(std::to_string(node->get_value()));
+        if constexpr (std::is_same<T, Complex>::value) {
+            text.setString(node->get_value().to_string());
+        } else {
+            text.setString(std::to_string(node->get_value()));
+        }
         text.setCharacterSize(12);
         text.setFillColor(sf::Color::Black);
         text.setPosition(x - 10, y - 10);
@@ -181,4 +196,5 @@ public:
         window.draw(circle);
         window.draw(text);
     }
+
 };

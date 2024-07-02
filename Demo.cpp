@@ -5,6 +5,7 @@
 #include <string>
 #include "node.hpp"
 #include "tree.hpp"
+#include "complex.hpp"
 
 using namespace std;
 int main()
@@ -61,6 +62,13 @@ int main()
     {
         cout << node->get_value() << endl;
     } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
+
+    std::cout<<"HEAP:"<<std::endl;
+
+    for (auto node = tree.begin_min_heap(); node != tree.end_min_heap(); ++node)
+    {
+        cout << node->get_value() << endl;
+    } // prints: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
     
     std::cout<<"FOR:"<<std::endl;
 
@@ -68,10 +76,9 @@ int main()
         std::cout << node.get_value() << std::endl;
     }// same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
-    cout << tree; // Should print the graph using GUI.
+    
 
     Node<double> tri_root_node = Node<double>(1.1);
-
 
     Tree<double,3> three_ary_tree; // 3-ary tree.
     Node<double> u1 = Node<double>(1.2);
@@ -122,7 +129,32 @@ int main()
     {
         cout << node->get_value() << endl;
     } // prints: 1.5, 1.2, 1.1, 1.6, 1.3, 1.4
-    cout << endl;
+
+    Node<Complex> c_root_node = Node<Complex>(Complex(1,5));
+    Tree<Complex> c_tree; 
+    c_tree.add_root(&c_root_node);
+    Node<Complex> c1 = Node<Complex>(Complex(1,3));
+    Node<Complex> c2 = Node<Complex>(Complex(1,6));
+    Node<Complex> c3 = Node<Complex>(Complex(1,2));
+    Node<Complex> c4 = Node<Complex>(Complex(1,8));
+    Node<Complex> c5 = Node<Complex>(Complex(1,7));
+
+
+    c_tree.add_sub_node(&c_root_node, &c1);
+    c_tree.add_sub_node(&c_root_node, &c2);
+    c_tree.add_sub_node(&c1, &c3);
+    c_tree.add_sub_node(&c1, &c4);
+    c_tree.add_sub_node(&c2, &c5);
+
+    std::cout<<"HEAP:"<<std::endl;
+
+    for (auto node = c_tree.begin_min_heap(); node != c_tree.end_min_heap(); ++node)
+    {
+        cout << node->get_value() << endl;
+    } // prints: 
+    cout << tree;
+    cout << c_tree; // Should print the graph using GUI.
+
 }
 
 
