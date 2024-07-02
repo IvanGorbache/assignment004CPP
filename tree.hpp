@@ -115,11 +115,13 @@ public:
         return end_bfs_scan();
     }
 
-    MinHeapIterator<T> begin_min_heap() const {
+    MinHeapIterator<T> begin_min_heap() const
+    {
         return MinHeapIterator<T>(root);
     }
 
-    MinHeapIterator<T> end_min_heap() const {
+    MinHeapIterator<T> end_min_heap() const
+    {
         return MinHeapIterator<T>(nullptr);
     }
 
@@ -168,17 +170,13 @@ public:
         }
 
         sf::Text text;
-        text.setFont(font);
-        if constexpr (std::is_same<T, Complex>::value) {
-            text.setString(node->get_value().to_string());
-        } else {
-            text.setString(std::to_string(node->get_value()));
-        }
+        std::stringstream ss;
+        ss << node->get_value();
+        text.setString(ss.str());
+        text.setString(std::to_string(node->get_value()));
         text.setCharacterSize(12);
         text.setFillColor(sf::Color::Black);
         text.setPosition(x - 10, y - 10);
-
-
 
         float childX = x - xOffset;
         float childY = y + 100;
@@ -186,8 +184,7 @@ public:
         {
             sf::Vertex line[] = {
                 sf::Vertex(sf::Vector2f(x, y), sf::Color::Black),
-                sf::Vertex(sf::Vector2f(childX, childY), sf::Color::Black)
-            };
+                sf::Vertex(sf::Vector2f(childX, childY), sf::Color::Black)};
             window.draw(line, 2, sf::Lines);
             drawNode(window, child, childX, childY, xOffset / 2);
             childX += 2 * xOffset / K;
@@ -196,5 +193,4 @@ public:
         window.draw(circle);
         window.draw(text);
     }
-
 };
