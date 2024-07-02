@@ -27,8 +27,6 @@ std::string Complex::to_string() const {
     return ss.str();
 }
 
-namespace std {
-    std::string to_string(const Complex& complex) {
-        return complex.to_string();
-    }
+std::string to_string(const Complex& complex) {
+    return complex.to_string();
 }
