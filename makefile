@@ -1,8 +1,6 @@
-#!make -f
-
 CXX=g++
 CXXFLAGS := -Wall -Wextra -std=c++11
-VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
+SFML_FLAGS := -lsfml-graphics -lsfml-window -lsfml-system
 
 SOURCES= Demo.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
@@ -11,10 +9,10 @@ run: tree
 	./$^
 
 tree: Demo.o $(filter-out TestCounter.o Test.o,$(OBJECTS))
-	$(CXX) $(CXXFLAGS) $^ -o tree
+	$(CXX) $(CXXFLAGS) $^ -o tree $(SFML_FLAGS)
 
 test: TestCounter.o Test.o $(filter-out Demo.o,$(OBJECTS))
-	$(CXX) $(CXXFLAGS) $^ -o test
+	$(CXX) $(CXXFLAGS) $^ -o test $(SFML_FLAGS)
 
 tidy:
 	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --

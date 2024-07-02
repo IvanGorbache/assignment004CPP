@@ -68,7 +68,7 @@ int main()
         std::cout << node.get_value() << std::endl;
     }// same as BFS: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6
 
-    // cout << tree; // Should print the graph using GUI.
+    cout << tree; // Should print the graph using GUI.
 
     Node<double> tri_root_node = Node<double>(1.1);
 

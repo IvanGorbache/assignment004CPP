@@ -5,6 +5,7 @@
 #include "inOrderIterator.hpp"
 #include "bfsScan.hpp"
 #include "dfsScan.hpp"
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
 #include <queue>
@@ -17,7 +18,7 @@ private:
     int k;
 
 public:
-    Tree() : root(nullptr), k(K){}
+    Tree() : root(nullptr), k(K) {}
 
     void add_root(Node<T> *root_node)
     {
@@ -71,35 +72,113 @@ public:
         return PostOrderIterator<T>(nullptr);
     }
 
-    InOrderIterator<T> begin_in_order() {
+    InOrderIterator<T> begin_in_order()
+    {
         return InOrderIterator<T>(root);
     }
 
-    InOrderIterator<T> end_in_order() {
+    InOrderIterator<T> end_in_order()
+    {
         return InOrderIterator<T>(nullptr);
     }
 
-    BfsScan<T> begin_bfs_scan() {
+    BfsScan<T> begin_bfs_scan()
+    {
         return BfsScan<T>(root);
     }
 
-    BfsScan<T> end_bfs_scan() {
+    BfsScan<T> end_bfs_scan()
+    {
         return BfsScan<T>(nullptr);
     }
 
-    DfsScan<T> begin_dfs_scan() {
+    DfsScan<T> begin_dfs_scan()
+    {
         return DfsScan<T>(root);
     }
 
-    DfsScan<T> end_dfs_scan() {
+    DfsScan<T> end_dfs_scan()
+    {
         return DfsScan<T>(nullptr);
     }
 
-    BfsScan<T> begin() {
+    BfsScan<T> begin()
+    {
         return begin_bfs_scan();
     }
 
-    BfsScan<T> end() {
+    BfsScan<T> end()
+    {
         return end_bfs_scan();
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Tree<T, K> &tree)
+    {
+        tree.visualize();
+        return os;
+    }
+
+    void visualize() const
+    {
+        sf::RenderWindow window(sf::VideoMode(800, 600), "Tree Visualization");
+
+        while (window.isOpen())
+        {
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+
+            window.clear(sf::Color::White);
+            if (root)
+            {
+                drawNode(window, root, 400, 50, 200);
+            }
+            window.display();
+        }
+    }
+
+    void drawNode(sf::RenderWindow &window, Node<T> *node, float x, float y, float xOffset) const
+    {
+        if (!node)
+            return;
+
+        sf::CircleShape circle(20);
+        circle.setFillColor(sf::Color::Green);
+        circle.setPosition(x - circle.getRadius(), y - circle.getRadius());
+
+        sf::Font font;
+        if (!font.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))
+        {
+            std::cerr << "Failed to load font" << std::endl;
+            return;
+        }
+
+        sf::Text text;
+        text.setFont(font);
+        text.setString(std::to_string(node->get_value()));
+        text.setCharacterSize(12);
+        text.setFillColor(sf::Color::Black);
+        text.setPosition(x - 10, y - 10);
+
+
+
+        float childX = x - xOffset;
+        float childY = y + 100;
+        for (auto child : node->getChildren())
+        {
+            sf::Vertex line[] = {
+                sf::Vertex(sf::Vector2f(x, y), sf::Color::Black),
+                sf::Vertex(sf::Vector2f(childX, childY), sf::Color::Black)
+            };
+            window.draw(line, 2, sf::Lines);
+            drawNode(window, child, childX, childY, xOffset / 2);
+            childX += 2 * xOffset / K;
+        }
+
+        window.draw(circle);
+        window.draw(text);
     }
 };
