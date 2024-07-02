@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS := -Wall -Wextra -std=c++11
 SFML_FLAGS := -lsfml-graphics -lsfml-window -lsfml-system
 
-SOURCES= Demo.cpp complex.cpp
+SOURCES= Demo.cpp complex.cpp TestCounter.cpp Test.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 run: tree

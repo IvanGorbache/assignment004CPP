@@ -172,9 +172,8 @@ public:
         sf::Text text;
         std::stringstream ss;
         ss << node->get_value();
-        text.setString(ss.str());
-        text.setString(std::to_string(node->get_value()));
-        text.setCharacterSize(12);
+        std::string nodeValueStr = ss.str();
+        text.setString(nodeValueStr);
         text.setFillColor(sf::Color::Black);
         text.setPosition(x - 10, y - 10);
 
@@ -190,7 +189,7 @@ public:
             childX += 2 * xOffset / K;
         }
 
-        window.draw(circle);
+        
         window.draw(text);
     }
 };
